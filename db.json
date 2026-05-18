@@ -13,6 +13,13 @@
       "createdAt": "2026-03-23T13:57:30.308Z",
       "updatedAt": "2026-03-23T13:57:30.308Z",
       "id": "dP_NPYuHV94"
+    },
+    {
+      "title": "어휴",
+      "content": "ㅅㅂ\n",
+      "createdAt": "2026-05-18T04:39:50.073Z",
+      "updatedAt": "2026-05-18T04:39:50.073Z",
+      "id": "opJTzQ8f2mw"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
