@@ -9,7 +9,9 @@
     "lint": "eslint . --fix",
     "format": "prettier --write .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "docs": "npm run --prefix docs-site start",
+    "docs:build": "npm run --prefix docs-site build"
   },
   "dependencies": {
     "react": "^19.1.0",
