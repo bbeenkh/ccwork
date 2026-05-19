@@ -262,3 +262,53 @@ const handleSave = async () => {
 
 - `src/api/notes.ts`: `'http://localhost:3001'` 하드코딩
 - **결정**: 현재는 학습용이므로 유지. 배포 전 `import.meta.env.VITE_API_URL` 로 전환 필요
+
+---
+
+## 커밋 메시지 규칙
+
+`@commitlint/config-conventional` 기준. husky `commit-msg` 훅으로 자동 검증됨.
+
+### 형식
+
+```
+type(scope): subject
+
+[body]
+
+[footer]
+```
+
+### type (필수, 소문자)
+
+| type | 용도 |
+|------|------|
+| `feat` | 새 기능 추가 |
+| `fix` | 버그 수정 |
+| `docs` | 문서 변경 |
+| `style` | 코드 의미에 영향 없는 포맷 변경 (공백, 세미콜론 등) |
+| `refactor` | 버그 수정도 기능 추가도 아닌 코드 변경 |
+| `perf` | 성능 개선 |
+| `test` | 테스트 추가 또는 수정 |
+| `build` | 빌드 시스템 또는 외부 의존성 변경 (npm, vite 등) |
+| `ci` | CI 설정 파일 및 스크립트 변경 |
+| `chore` | src/test 파일을 수정하지 않는 기타 변경 |
+| `revert` | 이전 커밋 되돌리기 |
+
+### 세부 규칙
+
+- **header** 최대 100자
+- **subject**: 비어있으면 안 됨, 마침표(`.`) 로 끝내지 않음, `Sentence-case` / `Start-Case` / `PascalCase` / `UPPER CASE` 사용 금지
+- **type**: 소문자(`lower-case`) 필수
+- **body**: 첫 줄 앞에 빈 줄 필요, 각 줄 최대 100자
+- **footer**: 첫 줄 앞에 빈 줄 필요, 각 줄 최대 100자
+
+### 예시
+
+```
+feat(NoteEditor): 저장 성공 시 toast 알림 추가
+fix(NoteList): 삭제 실패 시 에러 처리 누락 수정
+chore: husky commit-msg 훅 설정 추가
+docs: CLAUDE.md 커밋 규칙 섹션 추가
+refactor(NotesContext): removeNote 에러 처리 패턴 통일
+```
