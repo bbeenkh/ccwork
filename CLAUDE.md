@@ -5,17 +5,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 프로젝트 개요
 
 React 19 + TypeScript + Vite 학습용 노트 앱. JSON Server를 목업 백엔드로 사용하는 CRUD 메모 애플리케이션.
+패키지 매니저: pnpm 사용중
 
 ## 개발 명령어
 
 ```bash
-npm run dev          # Vite 개발 서버 + JSON Server 동시 실행 (프론트: 5173, API: 3001)
-npm run build        # 타입 검사 + 프로덕션 빌드
-npm run lint         # ESLint (--fix 포함)
-npm run format       # Prettier 포맷
-npm test             # Vitest 단일 실행
-npm run test:watch   # Vitest 감시 모드
-npm run server       # JSON Server 단독 실행
+pnpm run dev          # Vite 개발 서버 + JSON Server 동시 실행 (프론트: 5173, API: 3001)
+pnpm run build        # 타입 검사 + 프로덕션 빌드
+pnpm run lint         # ESLint (--fix 포함)
+pnpm run format       # Prettier 포맷
+pnpm test             # Vitest 단일 실행
+pnpm run test:watch   # Vitest 감시 모드
+pnpm run server       # JSON Server 단독 실행
 ```
 
 ## 아키텍처
