@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NotesProvider } from './context/NotesContext';
+import { AppToaster } from './components/AppToaster';
 import { Layout } from './components/Layout';
 import { NoteList } from './components/NoteList';
 import { NoteEditor } from './components/NoteEditor';
@@ -36,6 +37,7 @@ export function App() {
           />
         }
       />
+      <AppToaster />
     </NotesProvider>
   );
 }

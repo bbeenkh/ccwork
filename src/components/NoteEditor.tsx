@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { useNotes } from '../context/NotesContext';
 
 interface NoteEditorProps {
@@ -28,7 +29,7 @@ export function NoteEditor({ selectedNoteId, isCreating, onDone }: NoteEditorPro
 
   const handleSave = async () => {
     if (!title.trim()) {
-      alert('제목을 입력해주세요');
+      toast.error('제목을 입력해주세요');
       return;
     }
 
@@ -36,13 +37,15 @@ export function NoteEditor({ selectedNoteId, isCreating, onDone }: NoteEditorPro
     try {
       if (isCreating) {
         await addNote(title, content);
+        toast.success('노트가 추가되었습니다');
       } else if (selectedNoteId) {
         await editNote(selectedNoteId, { title, content });
+        toast.success('노트가 저장되었습니다');
       }
       onDone();
     } catch (e) {
       console.error(e);
-      alert('저장에 실패했습니다');
+      toast.error('저장에 실패했습니다');
     } finally {
       setSaving(false);
     }

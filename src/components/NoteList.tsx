@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useNotes } from '../context/NotesContext';
 import { NoteItem } from './NoteItem';
 
@@ -8,6 +9,16 @@ interface NoteListProps {
 
 export function NoteList({ selectedNoteId, onSelect }: NoteListProps) {
   const { notes, loading, error, removeNote } = useNotes();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await removeNote(id);
+      toast.success('노트가 삭제되었습니다');
+    } catch (e) {
+      console.error(e);
+      toast.error('삭제에 실패했습니다');
+    }
+  };
 
   if (loading) {
     return (
@@ -38,7 +49,7 @@ export function NoteList({ selectedNoteId, onSelect }: NoteListProps) {
           note={note}
           isSelected={note.id === selectedNoteId}
           onSelect={onSelect}
-          onDelete={removeNote}
+          onDelete={handleDelete}
         />
       ))}
     </>
