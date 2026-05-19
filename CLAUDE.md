@@ -78,7 +78,7 @@ interface NoteItemProps {
   onDelete: (id: string) => void;
 }
 
-// 2. named export로 컴포넌트 선언 (App.tsx 제외 — 불일치 항목 참조)
+// 2. named export로 컴포넌트 선언
 export function NoteItem({ note, isSelected, onSelect, onDelete }: NoteItemProps) {
   // 핸들러
   // JSX
@@ -86,7 +86,7 @@ export function NoteItem({ note, isSelected, onSelect, onDelete }: NoteItemProps
 ```
 
 - Props 인터페이스: `{컴포넌트명}Props` 형식 (`NoteItemProps`, `NoteEditorProps` 등)
-- 컴포넌트 파일 모두 **named export** 사용 (App.tsx만 예외적으로 default export)
+- 컴포넌트 파일 모두 **named export** 사용 (`App.tsx` 포함, 예외 없음)
 - Props는 함수 파라미터에서 바로 구조분해
 - 조건부 렌더링 순서: loading → error → empty → 정상 데이터 (NoteList 패턴)
 
@@ -236,12 +236,7 @@ const handleSave = async () => {
 
 현재 코드베이스에서 확인된 불일치. 수정 시 아래 결정을 따를 것.
 
-### 1. export 방식 혼재
-
-- **현상**: `App.tsx`만 `export default App` 사용, 나머지 컴포넌트는 모두 named export
-- **결정**: 신규 컴포넌트는 **named export** 사용. App.tsx는 Vite 관례상 유지
-
-### 2. 에러 처리 전략 혼재
+### 1. 에러 처리 전략 혼재
 
 | 위치 | 방식 |
 |------|------|
@@ -251,18 +246,18 @@ const handleSave = async () => {
 - **결정**: 뮤테이션(생성/수정/삭제)은 `try-catch-finally` 사용. 초기 fetch는 Promise 체인 유지.
 - `alert()` 는 임시 구현 — 향후 토스트/인라인 에러 UI로 교체 예정
 
-### 3. 로딩 상태 분산
+### 2. 로딩 상태 분산
 
 - `NotesContext.loading`: 초기 fetch 전용 전역 상태
 - `NoteEditor.saving`: 저장 작업 전용 로컬 상태
 - **결정**: 각 작업 범위에 맞게 유지. 전역 로딩 스피너가 필요하면 Context 확장.
 
-### 4. 에러 객체 타입 미보장
+### 3. 에러 객체 타입 미보장
 
 - `NotesContext.tsx`: `.catch((e) => setError(e.message))` — `e`가 Error 객체임을 보장하지 않음
 - **결정**: 신규 코드에서는 `e instanceof Error ? e.message : String(e)` 패턴 사용
 
-### 5. API URL 환경변수 미적용
+### 4. API URL 환경변수 미적용
 
 - `src/api/notes.ts`: `'http://localhost:3001'` 하드코딩
 - **결정**: 현재는 학습용이므로 유지. 배포 전 `import.meta.env.VITE_API_URL` 로 전환 필요
