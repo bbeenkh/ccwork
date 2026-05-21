@@ -22,6 +22,7 @@ export function Card({ isAccent, isSelected, onClick, className, children }: Car
       onClick={onClick}
       role={onClick ? 'button' : undefined}
       tabIndex={onClick ? 0 : undefined}
+      aria-selected={isSelected}
       onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
     >
       {children}

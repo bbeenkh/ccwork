@@ -1,8 +1,13 @@
-import { describe, it } from 'vitest';
+import { describe, it, expect } from 'vitest';
+import { render } from '@testing-library/react';
+import { Divider } from './Divider';
 
 describe('Divider', () => {
   describe('기본 렌더링', () => {
-    it('hr 엘리먼트를 렌더링한다');
+    it('hr 엘리먼트를 렌더링한다', () => {
+      const { container } = render(<Divider />);
+      expect(container.querySelector('hr')).toBeInTheDocument();
+    });
   });
 
   // aria / 시맨틱으로 검증 불가 — class·인라인 style 검증 필요
