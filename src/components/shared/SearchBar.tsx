@@ -8,14 +8,21 @@ interface SearchBarProps {
   className?: string;
 }
 
-export function SearchBar({ value, onChange, placeholder = 'Search...', onClear, className }: SearchBarProps) {
+export function SearchBar({
+  value,
+  onChange,
+  placeholder = 'Search your thoughts...',
+  onClear,
+  className,
+}: SearchBarProps) {
   return (
     <div className={clsx('search-bar', className)}>
+      {/* 돋보기 아이콘 — Figma: 18×18px, left 19px */}
       <svg
         className="search-bar-icon"
         xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
+        width="18"
+        height="18"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -27,6 +34,7 @@ export function SearchBar({ value, onChange, placeholder = 'Search...', onClear,
         <circle cx="11" cy="11" r="8" />
         <line x1="21" y1="21" x2="16.65" y2="16.65" />
       </svg>
+
       <input
         type="search"
         value={value}
@@ -34,11 +42,27 @@ export function SearchBar({ value, onChange, placeholder = 'Search...', onClear,
         placeholder={placeholder}
         aria-label={placeholder}
       />
+
       {onClear && value && (
         <button
           type="button"
           onClick={onClear}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground-subtle hover:text-foreground transition-colors"
+          style={{
+            position: 'absolute',
+            right: '14px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            color: 'var(--color-foreground-subtle)',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '2px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 'var(--radius-full)',
+            transition: 'color var(--transition-fast)',
+          }}
           aria-label="검색 초기화"
         >
           <svg

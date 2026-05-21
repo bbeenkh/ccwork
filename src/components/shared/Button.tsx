@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'destructive';
+type ButtonVariant = 'primary' | 'outline' | 'ghost' | 'destructive';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -9,6 +9,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
   children: React.ReactNode;
 }
+
+const sizeStyles: Record<ButtonSize, string> = {
+  sm: 'text-xs px-3 py-1',
+  md: '',
+  lg: 'text-base px-8 py-3',
+};
 
 export function Button({
   variant = 'primary',
@@ -24,11 +30,10 @@ export function Button({
       className={clsx(
         'btn',
         variant === 'primary' && 'btn-primary',
-        variant === 'secondary' && 'btn-secondary',
+        variant === 'outline' && 'btn-outline',
         variant === 'ghost' && 'btn-ghost',
         variant === 'destructive' && 'btn-destructive',
-        size === 'sm' && 'btn-sm',
-        size === 'lg' && 'btn-lg',
+        sizeStyles[size],
         className,
       )}
       disabled={disabled || isLoading}
