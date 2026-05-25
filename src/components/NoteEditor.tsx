@@ -100,19 +100,7 @@ export function NoteEditor({ selectedNoteId, isCreating, onDone, isReadOnly = fa
             </button>
           }
           right={
-            isReadOnly ? (
-              <span
-                style={{
-                  fontFamily: 'inherit',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: 'var(--font-weight-semibold)',
-                  color: 'var(--color-foreground-subtle)',
-                  padding: '6px 4px',
-                }}
-              >
-                읽기 전용
-              </span>
-            ) : (
+            !isReadOnly && (
               <button
                 className="icon-btn"
                 aria-label="저장"

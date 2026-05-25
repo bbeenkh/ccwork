@@ -30,13 +30,6 @@ describe('NoteEditor 읽기 전용 모드', () => {
     });
   });
 
-  it('isReadOnly=true 이면 "읽기 전용" 레이블이 표시된다', () => {
-    render(
-      <NoteEditor selectedNoteId="1" isCreating={false} onDone={vi.fn()} isReadOnly />,
-    );
-    expect(screen.getByText('읽기 전용')).toBeInTheDocument();
-  });
-
   it('isReadOnly=true 이면 저장 버튼이 표시되지 않는다', () => {
     render(
       <NoteEditor selectedNoteId="1" isCreating={false} onDone={vi.fn()} isReadOnly />,
