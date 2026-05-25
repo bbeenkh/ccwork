@@ -9,6 +9,19 @@ interface CardProps {
   children: React.ReactNode;
 }
 
+/**
+ * Render a stylable card container that supports accenting, selection, and optional click interaction.
+ *
+ * When `onClick` is provided the card is made keyboard-focusable and will invoke the handler when
+ * activated via mouse click or by pressing Enter. The component reflects selection state via
+ * `aria-selected`.
+ *
+ * @param isAccent - When true, apply the accent (pinned) visual style
+ * @param isSelected - When true, mark the card as selected (also applied to `aria-selected`)
+ * @param onClick - Optional click handler; when present the card becomes focusable and responds to Enter
+ * @param className - Additional CSS classes to append to the card element
+ * @returns The rendered card element
+ */
 export function Card({ isAccent, isSelected, onClick, className, children }: CardProps) {
   return (
     <div

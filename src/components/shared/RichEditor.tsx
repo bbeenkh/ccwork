@@ -18,6 +18,16 @@ const modules = {
 
 const formats = ['header', 'bold', 'italic', 'underline', 'list', 'blockquote', 'hr'];
 
+/**
+ * Render a configured rich-text editor using ReactQuill's Snow theme.
+ *
+ * Renders a controlled ReactQuill instance with a predefined toolbar and allowed formats.
+ *
+ * @param value - Current editor content (HTML or delta string)
+ * @param onChange - Callback invoked with the updated editor content
+ * @param placeholder - Optional placeholder text shown when the editor is empty
+ * @returns The rendered ReactQuill element
+ */
 export function RichEditor({ value, onChange, placeholder }: RichEditorProps) {
   return (
     <ReactQuill

@@ -30,6 +30,18 @@ function ChevronLeftIcon() {
   );
 }
 
+/**
+ * Mobile editor UI for creating a new note or editing a selected note.
+ *
+ * Synchronizes its form fields with the selected note when provided, validates the title,
+ * persists changes through the notes context (adding or editing), shows success/error toasts,
+ * and invokes `onDone` after saving or when the user navigates back.
+ *
+ * @param selectedNoteId - ID of the note to edit, or `null` when creating a new note
+ * @param isCreating - Whether the editor is in "create" mode
+ * @param onDone - Callback invoked after a successful save or when the user exits the editor
+ * @returns The NoteEditor React element
+ */
 export function NoteEditor({ selectedNoteId, isCreating, onDone }: NoteEditorProps) {
   const { notes, addNote, editNote } = useNotes();
   const [title, setTitle] = useState('');
