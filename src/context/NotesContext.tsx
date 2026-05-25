@@ -46,8 +46,8 @@ export function NotesProvider({ children }: { children: ReactNode }) {
   };
 
   const removeNote = async (id: string) => {
-    await api.deleteNote(id);
-    setNotes((prev) => prev.filter((n) => n.id !== id));
+    const archived = await api.deleteNote(id);
+    setNotes((prev) => prev.map((n) => (n.id === id ? archived : n)));
   };
 
   return (
