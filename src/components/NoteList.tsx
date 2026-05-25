@@ -16,7 +16,7 @@ export function NoteList({ selectedNoteId, onSelect, searchQuery = '', activeTag
   const handleDelete = async (id: string) => {
     try {
       await removeNote(id);
-      toast.success('노트가 삭제되었습니다');
+      toast.success('노트가 아카이브로 이동되었습니다.');
     } catch (e) {
       console.error(e);
       toast.error('삭제에 실패했습니다');
@@ -45,6 +45,8 @@ export function NoteList({ selectedNoteId, onSelect, searchQuery = '', activeTag
 
   // 검색 + 태그 필터 적용
   const filtered = notes.filter((note) => {
+    if (note.archivedAt != null) return false; // 아카이브된 노트 숨김
+
     const matchSearch =
       !searchQuery ||
       note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
