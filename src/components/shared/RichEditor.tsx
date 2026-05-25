@@ -4,6 +4,7 @@ interface RichEditorProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  readOnly?: boolean;
 }
 
 const modules = {
@@ -28,7 +29,7 @@ const formats = ['header', 'bold', 'italic', 'underline', 'list', 'blockquote', 
  * @param placeholder - Optional placeholder text shown when the editor is empty
  * @returns The rendered ReactQuill element
  */
-export function RichEditor({ value, onChange, placeholder }: RichEditorProps) {
+export function RichEditor({ value, onChange, placeholder, readOnly = false }: RichEditorProps) {
   return (
     <ReactQuill
       theme="snow"
@@ -37,6 +38,7 @@ export function RichEditor({ value, onChange, placeholder }: RichEditorProps) {
       placeholder={placeholder}
       modules={modules}
       formats={formats}
+      readOnly={readOnly}
     />
   );
 }

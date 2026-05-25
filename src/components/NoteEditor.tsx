@@ -10,6 +10,7 @@ interface NoteEditorProps {
   selectedNoteId: string | null;
   isCreating: boolean;
   onDone: () => void;
+  isReadOnly?: boolean;
 }
 
 function ChevronLeftIcon() {
@@ -42,7 +43,7 @@ function ChevronLeftIcon() {
  * @param onDone - Callback invoked after a successful save or when the user exits the editor
  * @returns The NoteEditor React element
  */
-export function NoteEditor({ selectedNoteId, isCreating, onDone }: NoteEditorProps) {
+export function NoteEditor({ selectedNoteId, isCreating, onDone, isReadOnly = false }: NoteEditorProps) {
   const { notes, addNote, editNote } = useNotes();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -92,31 +93,45 @@ export function NoteEditor({ selectedNoteId, isCreating, onDone }: NoteEditorPro
     <MobileLayout
       header={
         <TopAppBar
-          title={isCreating ? '새 노트' : '노트 편집'}
+          title={isCreating ? '새 노트' : isReadOnly ? '아카이브' : '노트 편집'}
           left={
             <button className="icon-btn" aria-label="뒤로 가기" onClick={onDone}>
               <ChevronLeftIcon />
             </button>
           }
           right={
-            <button
-              className="icon-btn"
-              aria-label="저장"
-              onClick={handleSave}
-              disabled={saving}
-              style={{
-                fontFamily: 'inherit',
-                fontSize: 'var(--text-sm)',
-                fontWeight: 'var(--font-weight-semibold)',
-                color: saving ? 'var(--color-foreground-subtle)' : 'var(--color-primary)',
-                background: 'none',
-                border: 'none',
-                cursor: saving ? 'default' : 'pointer',
-                padding: '6px 4px',
-              }}
-            >
-              {saving ? '저장 중...' : '저장'}
-            </button>
+            isReadOnly ? (
+              <span
+                style={{
+                  fontFamily: 'inherit',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: 'var(--font-weight-semibold)',
+                  color: 'var(--color-foreground-subtle)',
+                  padding: '6px 4px',
+                }}
+              >
+                읽기 전용
+              </span>
+            ) : (
+              <button
+                className="icon-btn"
+                aria-label="저장"
+                onClick={handleSave}
+                disabled={saving}
+                style={{
+                  fontFamily: 'inherit',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: 'var(--font-weight-semibold)',
+                  color: saving ? 'var(--color-foreground-subtle)' : 'var(--color-primary)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: saving ? 'default' : 'pointer',
+                  padding: '6px 4px',
+                }}
+              >
+                {saving ? '저장 중...' : '저장'}
+              </button>
+            )
           }
         />
       }
@@ -134,6 +149,7 @@ export function NoteEditor({ selectedNoteId, isCreating, onDone }: NoteEditorPro
           placeholder="제목"
           className="editor-title-input"
           style={{ marginBottom: 12 }}
+          disabled={isReadOnly}
         />
 
         {/* 구분선 */}
@@ -146,18 +162,14 @@ export function NoteEditor({ selectedNoteId, isCreating, onDone }: NoteEditorPro
         />
 
         {/* 내용 입력 */}
-        <RichEditor value={content} onChange={setContent} placeholder="내용을 입력하세요..." />
+        <RichEditor value={content} onChange={setContent} placeholder="내용을 입력하세요..." readOnly={isReadOnly} />
 
         {/* 태그 영역 */}
-        <div
-          style={{
-            marginTop: 16,
-            paddingTop: 16,
-            borderTop: '1px solid var(--color-border)',
-          }}
-        >
-          <TagInput tags={tags} onChange={setTags} />
-        </div>
+        {!isReadOnly && (
+          <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--color-border)' }}>
+            <TagInput tags={tags} onChange={setTags} />
+          </div>
+        )}
       </div>
     </MobileLayout>
   );
