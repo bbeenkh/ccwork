@@ -14,6 +14,16 @@ interface NotesContextType {
 
 const NotesContext = createContext<NotesContextType | null>(null);
 
+/**
+ * Provides notes state and CRUD operations to descendant components via NotesContext.
+ *
+ * The provider initializes notes by fetching them from the API and migrating each note's
+ * `content` with `migrateContent`. It also exposes `loading` and `error` states along with
+ * `addNote`, `editNote`, and `removeNote` functions through the context value.
+ *
+ * @param children - The React node subtree that will have access to the notes context
+ * @returns A React provider element that supplies `notes`, `loading`, `error`, `addNote`, `editNote`, and `removeNote` to its children
+ */
 export function NotesProvider({ children }: { children: ReactNode }) {
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);

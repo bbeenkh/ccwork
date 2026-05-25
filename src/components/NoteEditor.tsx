@@ -30,6 +30,17 @@ function ChevronLeftIcon() {
   );
 }
 
+/**
+ * Render a note editor UI for creating a new note or editing an existing one.
+ *
+ * Synchronizes its form state with the selected note, validates and saves changes,
+ * and exposes controls for title, rich content, and tags.
+ *
+ * @param selectedNoteId - The ID of the note to edit, or `null` to indicate no selection.
+ * @param isCreating - When `true`, the editor is in "create new note" mode.
+ * @param onDone - Callback invoked after a successful save or when the user navigates back/cancels.
+ * @returns The note editor UI as a JSX element.
+ */
 export function NoteEditor({ selectedNoteId, isCreating, onDone }: NoteEditorProps) {
   const { notes, addNote, editNote } = useNotes();
   const [title, setTitle] = useState('');

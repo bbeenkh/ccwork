@@ -36,6 +36,15 @@ function MoreIcon() {
   );
 }
 
+/**
+ * Render a selectable note card showing title, a sanitized content preview, tags, updated date, and a delete action.
+ *
+ * @param note - The note to display; expected to include `id`, `title`, `content`, `tags`, and `updatedAt`
+ * @param isSelected - Whether the card is visually marked as selected
+ * @param onSelect - Callback invoked with the note `id` when the card is clicked
+ * @param onDelete - Callback invoked with the note `id` when the delete action is triggered
+ * @returns A card element representing the provided note with preview, metadata, and actions
+ */
 export function NoteItem({ note, isSelected, onSelect, onDelete }: NoteItemProps) {
   const hasTags = note.tags && note.tags.length > 0;
 

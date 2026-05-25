@@ -18,6 +18,16 @@ const modules = {
 
 const formats = ['header', 'bold', 'italic', 'underline', 'list', 'blockquote', 'hr'];
 
+/**
+ * Render a configured rich-text editor backed by ReactQuill.
+ *
+ * Renders a controlled editor with a predefined toolbar and restricted formats.
+ *
+ * @param value - Current editor content (HTML string)
+ * @param onChange - Callback invoked with the updated editor content
+ * @param placeholder - Optional placeholder text shown when the editor is empty
+ * @returns A React element rendering the rich-text editor
+ */
 export function RichEditor({ value, onChange, placeholder }: RichEditorProps) {
   return (
     <ReactQuill
