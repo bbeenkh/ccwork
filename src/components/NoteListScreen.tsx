@@ -13,6 +13,7 @@ interface NoteListScreenProps {
   selectedNoteId: string | null;
   onSelectNote: (id: string) => void;
   onNewNote: () => void;
+  onArchive: () => void;
 }
 
 /* ---- 아이콘 ---- */
@@ -112,26 +113,13 @@ function SettingsNavIcon() {
   );
 }
 
-const NAV_ITEMS: BottomNavItem[] = [
-  {
-    id: 'notes',
-    label: 'Notes',
-    icon: (active) => <NotesNavIcon active={active} />,
-  },
-  {
-    id: 'archive',
-    label: 'Archive',
-    icon: () => <ArchiveNavIcon />,
-  },
-  {
-    id: 'settings',
-    label: 'Settings',
-    icon: () => <SettingsNavIcon />,
-  },
-];
-
 /* ---- NoteListScreen ---- */
-export function NoteListScreen({ selectedNoteId, onSelectNote, onNewNote }: NoteListScreenProps) {
+export function NoteListScreen({
+  selectedNoteId,
+  onSelectNote,
+  onNewNote,
+  onArchive,
+}: NoteListScreenProps) {
   const { notes } = useNotes();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTag, setActiveTag] = useState('All');
@@ -143,6 +131,25 @@ export function NoteListScreen({ selectedNoteId, onSelectNote, onNewNote }: Note
     notes.forEach((n) => n.tags?.forEach((t) => tagSet.add(t)));
     return ['All', ...Array.from(tagSet)];
   }, [notes]);
+
+  const navItems: BottomNavItem[] = [
+    {
+      id: 'notes',
+      label: 'Notes',
+      icon: (active) => <NotesNavIcon active={active} />,
+    },
+    {
+      id: 'archive',
+      label: 'Archive',
+      icon: () => <ArchiveNavIcon />,
+      onClick: onArchive,
+    },
+    {
+      id: 'settings',
+      label: 'Settings',
+      icon: () => <SettingsNavIcon />,
+    },
+  ];
 
   return (
     <MobileLayout
@@ -171,7 +178,7 @@ export function NoteListScreen({ selectedNoteId, onSelectNote, onNewNote }: Note
         />
       }
       fab={<FAB onClick={onNewNote} aria-label="새 노트 만들기" icon={<PlusIcon />} />}
-      bottomNav={<BottomNav items={NAV_ITEMS} activeId="notes" />}
+      bottomNav={<BottomNav items={navItems} activeId="notes" />}
     >
       {/* 검색 + 필터 섹션 */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 24, padding: '8px 20px 0' }}>
