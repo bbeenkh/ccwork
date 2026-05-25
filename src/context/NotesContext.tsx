@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Note } from '../types/note';
 import * as api from '../api/notes';
+import { migrateContent } from '../utils/migrateContent';
 
 interface NotesContextType {
   notes: Note[];
@@ -21,7 +22,7 @@ export function NotesProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     api
       .fetchNotes()
-      .then(setNotes)
+      .then((notes) => setNotes(notes.map((n) => ({ ...n, content: migrateContent(n.content) }))))
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
   }, []);

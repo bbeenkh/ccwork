@@ -4,6 +4,7 @@ import { useNotes } from '../context/NotesContext';
 import { TagInput } from './TagInput';
 import { MobileLayout } from './shared/MobileLayout';
 import { TopAppBar } from './shared/TopAppBar';
+import { RichEditor } from './shared/RichEditor';
 
 interface NoteEditorProps {
   selectedNoteId: string | null;
@@ -133,13 +134,7 @@ export function NoteEditor({ selectedNoteId, isCreating, onDone }: NoteEditorPro
         />
 
         {/* 내용 입력 */}
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="내용을 입력하세요..."
-          rows={14}
-          className="editor-textarea"
-        />
+        <RichEditor value={content} onChange={setContent} placeholder="내용을 입력하세요..." />
 
         {/* 태그 영역 */}
         <div
