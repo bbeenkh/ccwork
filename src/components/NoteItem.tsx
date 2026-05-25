@@ -2,6 +2,7 @@ import { Note } from '../types/note';
 import { Card, CardTitle, CardPreview, CardFooter } from './shared/Card';
 import { Tag } from './shared/Tag';
 import type { TagColor } from './shared/Tag';
+import { stripHtml } from '../utils/stripHtml';
 
 interface NoteItemProps {
   note: Note;
@@ -15,18 +16,6 @@ const TAG_COLORS: TagColor[] = ['indigo', 'pink', 'rose'];
 function getTagColor(tag: string): TagColor {
   const sum = [...tag].reduce((acc, c) => acc + c.charCodeAt(0), 0);
   return TAG_COLORS[sum % TAG_COLORS.length];
-}
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/\s+/g, ' ')
-    .trim();
 }
 
 function formatDate(iso: string) {
