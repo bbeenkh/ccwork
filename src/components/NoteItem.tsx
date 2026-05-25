@@ -17,6 +17,18 @@ function getTagColor(tag: string): TagColor {
   return TAG_COLORS[sum % TAG_COLORS.length];
 }
 
+function stripHtml(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-US', {
     month: 'short',
@@ -42,7 +54,7 @@ export function NoteItem({ note, isSelected, onSelect, onDelete }: NoteItemProps
     <Card isSelected={isSelected} onClick={() => onSelect(note.id)}>
       <CardTitle>{note.title || '(제목 없음)'}</CardTitle>
 
-      {note.content && <CardPreview>{note.content}</CardPreview>}
+      {note.content && <CardPreview>{stripHtml(note.content)}</CardPreview>}
 
       <CardFooter
         date={formatDate(note.updatedAt)}
