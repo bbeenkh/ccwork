@@ -41,4 +41,22 @@ describe('stripHtml', () => {
   it('태그가 없는 plain text는 그대로 반환한다', () => {
     expect(stripHtml('안녕하세요')).toBe('안녕하세요');
   });
+
+  it('중첩된 태그도 모두 제거한다', () => {
+    expect(stripHtml('<p><strong><em>강조</em></strong></p>')).toBe('강조');
+  });
+
+  it('속성이 있는 태그도 제거한다', () => {
+    expect(stripHtml('<p class="note-preview" data-id="1">내용</p>')).toBe('내용');
+  });
+
+  it('self-closing 태그(br, hr)도 제거한다', () => {
+    expect(stripHtml('<p>앞<br/>뒤</p>')).toBe('앞 뒤');
+  });
+
+  it('여러 HTML 엔티티가 섞인 경우 모두 변환한다', () => {
+    expect(stripHtml('<p>&lt;b&gt;&amp;&quot;hello&quot;&amp;&lt;/b&gt;</p>')).toBe(
+      '<b>&"hello"&</b>',
+    );
+  });
 });

@@ -54,4 +54,21 @@ describe('RichEditor', () => {
       expect(screen.getByTestId('quill-editor')).toBeInTheDocument();
     });
   });
+
+  describe('placeholder가 없는 경우', () => {
+    it('placeholder가 전달되지 않으면 data-placeholder 속성이 정의되지 않는다', () => {
+      render(<RichEditor value="" onChange={() => {}} />);
+      expect(screen.getByTestId('quill-editor')).not.toHaveAttribute(
+        'data-placeholder',
+        expect.stringContaining(''),
+      );
+    });
+  });
+
+  describe('빈 HTML value', () => {
+    it('<p></p> 값도 에디터에 그대로 반영한다', () => {
+      render(<RichEditor value="<p></p>" onChange={() => {}} />);
+      expect(screen.getByTestId('quill-editor')).toHaveAttribute('data-value', '<p></p>');
+    });
+  });
 });
