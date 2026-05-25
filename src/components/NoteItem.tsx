@@ -9,6 +9,7 @@ interface NoteItemProps {
   isSelected: boolean;
   onSelect: (id: string) => void;
   onDelete: (id: string) => void;
+  isReadOnly?: boolean;
 }
 
 const TAG_COLORS: TagColor[] = ['indigo', 'pink', 'rose'];
@@ -45,7 +46,7 @@ function MoreIcon() {
  * @param onDelete - Called with the note `id` when the delete action is clicked; activating delete does not trigger card selection
  * @returns The rendered note card element
  */
-export function NoteItem({ note, isSelected, onSelect, onDelete }: NoteItemProps) {
+export function NoteItem({ note, isSelected, onSelect, onDelete, isReadOnly = false }: NoteItemProps) {
   const hasTags = note.tags && note.tags.length > 0;
 
   return (
@@ -66,29 +67,31 @@ export function NoteItem({ note, isSelected, onSelect, onDelete }: NoteItemProps
           ) : undefined
         }
         actions={
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete(note.id);
-            }}
-            aria-label={`${note.title} 삭제`}
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              color: 'var(--color-foreground-subtle)',
-              padding: '2px 4px',
-              borderRadius: 'var(--radius-sm)',
-              display: 'flex',
-              alignItems: 'center',
-              transition: 'color var(--transition-fast)',
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-destructive)')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-foreground-subtle)')}
-          >
-            <MoreIcon />
-          </button>
+          !isReadOnly ? (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete(note.id);
+              }}
+              aria-label={`${note.title} 삭제`}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: 'var(--color-foreground-subtle)',
+                padding: '2px 4px',
+                borderRadius: 'var(--radius-sm)',
+                display: 'flex',
+                alignItems: 'center',
+                transition: 'color var(--transition-fast)',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-destructive)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-foreground-subtle)')}
+            >
+              <MoreIcon />
+            </button>
+          ) : undefined
         }
       />
     </Card>
